@@ -1,4 +1,4 @@
-package com.callor.hello;
+package com.callor.hello.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.callor.hello.models.UserDto;
+import com.callor.hello.service.UserService;
+import com.callor.hello.service.impl.UserServiceImpl;
 
 /**
  * Spring routing
@@ -27,6 +29,27 @@ import com.callor.hello.models.UserDto;
 @Controller
 @RequestMapping(value="/user")
 public class UserController {
+	
+	/*
+	 * UserService 객체를 UserController 의
+	 * 여러 method 에서 사용하기 위하여 선언하고
+	 * 생성자에서 생성하기
+	 * */
+	private final UserService userService;
+	
+	/*
+	 * 생성자에 아무 준비가 되지 않은 매개변수를 선언하는 것
+	 * Spring 아
+	 * 미리 준비되어 있는 userService bean 을 나에게 달라
+	 * 나에게 객체를 주입해 달라(DI : Dependency Injection, 의존성 주입)
+	 * */
+	public UserController(UserService userService) { // 기존과 달리 필요하다 하면 Spring이 알아서 줌(Ioc)
+//		기존의 Java 방식으로 클래스를 객체로 >>생성<<하기
+//		userService = new UserServiceImpl();
+		
+//		DI 로 받은 userService 객체를 >>사용<<하기
+		this.userService = userService;
+	}
 
 //	http://localhost:8080/hello/user/login 
 	@RequestMapping(value="/login", method=RequestMethod.GET) // GET 만쓰고 자동완성
@@ -52,9 +75,20 @@ public class UserController {
 		return null;
 		
 	}
+	/*
+	 * UserService.getUser() method 를 호출하여
+	 * 샘플 사용자 정보를 받아서 jsp 파일로 보내주기
+	 * */
 	
 	@RequestMapping(value = "/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(Model model) {
+		
+		// userService 를 UserController 의 여러 method 에서
+		// 사용을 해야 한다 라면 ? 어떻게 ?
+//		UserService userService = new UserServiceImpl();
+		UserDto user = userService.getUser();
+		model.addAttribute("USER",user);
+		
 		return null;
 	}
 //	
