@@ -13,9 +13,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomVO {
-
-	private String c_code; //	varchar(5)
-	private String c_name; //	varchar(25)
-	private String c_tel;  //	varchar(15)
+public class ProductVO {
+	private String p_code;	//varchar(6)
+	private String p_name;	//varchar(25)
+	private String p_item;	//varchar(25)
+	private int p_price;	//int
 }
