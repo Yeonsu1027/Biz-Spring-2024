@@ -61,7 +61,6 @@ public class CustmorController {
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	// 주소 http://localhost:8080/hello/customer/detail?c_code=C1004 
 	// 주소에 있는 c_code 를 cCode 라는 이름으로 받겠다.
-	// const cCode = req.params.c_code 	node의 이런느낌..
 	public String detail(@RequestParam("c_code")String cCode, Model model,
 			@RequestParam(name="msg",required = false, defaultValue="OK") String msg) { // required = false : mag 값이 없어된다. 없으면 OK
 		
